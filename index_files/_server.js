@@ -1,8 +1,6 @@
 // --------------------------------------
 // setup webserver
 (function(exports){
-	var http = require('http');
-	var url = require('url');
 	var fs = require('fs');
 	var path = require('path');
 	var express = require('express'),
@@ -20,6 +18,16 @@
 
 		// {$port}番ポートでLISTEN状態にする
 		server.listen( port );
+
+		var io = require('socket.io')(server);
+		io.on('connection', function (socket) {
+			console.log('Socket Connected.');
+			socket.on('command', function (cmd) {
+				console.log(cmd);
+				socket.emit('result', cmd);
+				return;
+			});
+		});
 
 		cb();
 	}// start();
@@ -53,9 +61,6 @@
 
 		_port = port;
 		_pathDocumentRoot = pathDocumentRoot;
-		if( !_port ){
-			_port = 8081;// default port number
-		}
 		start( this.getPort(), _pathDocumentRoot, cb );
 
 		return this;
