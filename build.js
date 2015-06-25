@@ -1,4 +1,4 @@
-var _utils = require('./src/common/libs/_utils.node.js');
+var _utils = require('./index_files/_utils.node.js');
 var NwBuilder = require('node-webkit-builder');
 var zipFolder = require('zip-folder');
 var packageJson = require('./package.json');
