@@ -5,8 +5,8 @@ var uglify = require("gulp-uglify");
 var plumber = require("gulp-plumber");
 
 
-// src 中の *.sass を処理
-gulp.task('.sass', function(){
+// src 中の *.scss を処理
+gulp.task('.scss', function(){
 	gulp.src("src/**/*.scss")
 		.pipe(plumber())
 		.pipe(sass())
@@ -34,7 +34,7 @@ gulp.task(".html", function() {
 
 // src 中のすべての拡張子を監視して処理
 gulp.task("watch", function() {
-	gulp.watch(["src/**/*.sass"],[".sass"]);
+	gulp.watch(["src/**/*.scss"],[".scss"]);
 	gulp.watch(["src/**/*.js"],[".js"]);
 	gulp.watch(["src/**/*.html","src/**/*.htm"],[".html"]);
 });
@@ -42,6 +42,6 @@ gulp.task("watch", function() {
 // src 中のすべての拡張子を処理(default)
 gulp.task("default", [
 	'.html',
-	'.sass',
+	'.scss',
 	'.js'
 ]);
