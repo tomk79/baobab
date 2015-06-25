@@ -1,0 +1,9 @@
+{
+  "name": "Baobab",
+  "ignore": [],
+  "dependencies": {
+    "jquery": "2.*",
+    "bootstrap": "~3.3.5"
+  },
+  "devDependencies": {}
+}

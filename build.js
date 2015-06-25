@@ -1,10 +1,10 @@
-var appName = 'Baobab';
 var _utils = require('./src/common/libs/_utils.node.js');
 var NwBuilder = require('node-webkit-builder');
 var zipFolder = require('zip-folder');
 var packageJson = require('./package.json');
 var phpjs = require('phpjs');
 var date = new Date();
+var appName = packageJson.name;
 
 console.log('== build "'+appName+'" ==');
 
@@ -28,7 +28,7 @@ var nw = new NwBuilder({
     files: [
       './index.html',
       './package.json',
-      './app/**',
+      './dist/**',
       './node_modules/**'
     ], // use the glob format
     version: 'v0.11.6',// <- version number of node-webkit

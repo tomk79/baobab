@@ -11,7 +11,7 @@ gulp.task('.scss', function(){
 		.pipe(plumber())
 		.pipe(sass())
 		.pipe(autoprefixer())
-		.pipe(gulp.dest("./app"))
+		.pipe(gulp.dest("./dist"))
 	;
 });
 
@@ -20,7 +20,7 @@ gulp.task(".js", function() {
 	gulp.src(["src/**/*.js"])
 		.pipe(plumber())
 		.pipe(uglify())
-		.pipe(gulp.dest("./app"))
+		.pipe(gulp.dest("./dist"))
 	;
 });
 
@@ -28,7 +28,7 @@ gulp.task(".js", function() {
 gulp.task(".html", function() {
 	gulp.src(["src/**/*.html", "src/**/*.htm"])
 		.pipe(plumber())
-		.pipe(gulp.dest("./app"))
+		.pipe(gulp.dest("./dist"))
 	;
 });
 

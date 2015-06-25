@@ -2,7 +2,7 @@
   "name": "Baobab",
   "version": "0.1.0-alpha1",
   "description": "Baobab is the SystemFont Viewer Application.",
-  "main": "index.html",
+  "main": "dist/index.html",
   "scripts": {
     "start": "node_modules/nodewebkit/bin/nodewebkit",
     "build": "node ./build.js"
@@ -24,7 +24,8 @@
     "socket.io": "^1.3.5",
     "zip-folder": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  },
   "window": {
     "title": "Baobab",
     "toolbar": true,

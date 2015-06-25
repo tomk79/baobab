@@ -1,2 +1,2 @@
 // common.js
-alert(123);
+window.focus();
