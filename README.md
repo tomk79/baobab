@@ -8,10 +8,12 @@ Baobab is the SystemFont Viewer Application.
 
 ```
 $ npm install
+$ gulp watch
 ```
 
 ### Build
 
 ```
+$ gulp default
 $ npm run build
 ```
