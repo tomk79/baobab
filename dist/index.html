@@ -24,13 +24,12 @@
 			var socket = io.connect('http://'+window.location.host);
 			socket.on('result', function (result) {
 				// console.log(result);
-				$('.contents').html('');
 
 				var template = twig({
 					data: $('#template-fontlist-listitem').html()
 				});
 
-				var $ul = $('<ul class="font-list">');
+				var $ul = $('.font-list');
 				$('.contents').append($ul);
 				var sampleText = ''+$('#mainform input[name=sampleText]').val();
 				for(var idx in result){

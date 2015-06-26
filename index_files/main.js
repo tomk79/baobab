@@ -2,7 +2,6 @@ new (function($, window){
 	window.main = this;
 	window.focus();
 	var _utils = require('./index_files/_utils.node.js');
-	var _appServer = require('./index_files/_server.js');
 	var _nw_gui = require('nw.gui');
 	var $mainFrame;
 
@@ -21,15 +20,18 @@ new (function($, window){
 
 		})();
 
-		_appServer.serverStandby( 8080, './dist/', function(){
+		require('child_process').spawn('node',['./dist/common/node/server.js']);
+
+		setTimeout(function(){
 			$mainFrame = $('<iframe>')
-				.attr({'src':'http://127.0.0.1:'+_appServer.getPort()+'/'})
+				.attr({'src':'http://127.0.0.1:8080/'})
 			;
 			$('body')
 				.html($mainFrame)
 			;
 			windowResize();
-		} );
+		}, 500);
+
 	});
 
 	function windowResize(){

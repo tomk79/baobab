@@ -1,1 +1,1 @@
-window.focus(),window.main=new function(n){function i(){n("#mainform").submit(function(){window.main.showFontList()})}this.showFontList=function(){socket.emit("command",{api:"getSystemFontList"})},n(window).load(function(){i()})}(jQuery);
+window.focus(),window.main=new function(o){function n(){o("#mainform").submit(function(){window.main.showFontList()})}this.showFontList=function(){console.log("get fontlist."),o(".contents").html('<ul class="font-list">'),console.log("before emit()"),socket.emit("command",{api:"getSystemFontList"})},o(window).load(function(){n()})}(jQuery);

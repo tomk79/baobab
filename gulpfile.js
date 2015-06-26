@@ -38,12 +38,9 @@ gulp.task("watch", function() {
 	gulp.watch(["src/**/*.js"],[".js"]);
 	gulp.watch(["src/**/*.html","src/**/*.htm"],[".html"]);
 
-	var _appServer = require('./index_files/_server.js');
-	_appServer.serverStandby( 8080, './dist/', function(){
-		console.log('Server Standby: http://127.0.0.1:'+_appServer.getPort()+'/');
+	require('child_process').spawn('node',['./dist/common/node/server.js']);
+	require('child_process').spawn('open',['http://127.0.0.1:'+8080+'/']);
 
-		require('child_process').spawn('open',['http://127.0.0.1:'+_appServer.getPort()+'/']);
-	} );
 });
 
 // src 中のすべての拡張子を処理(default)
