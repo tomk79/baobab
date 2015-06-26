@@ -7,9 +7,12 @@
 		<!-- jQuery -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 
-		<!-- bootstrap -->
+		<!-- Bootstrap -->
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+		<!-- Twig -->
+		<script src="bower_components/twig.js/twig.js"></script>
 
 		<!-- common -->
 		<link rel="stylesheet" href="common/styles/common.css" />
@@ -20,15 +23,68 @@
 		<script type="text/javascript">
 			var socket = io.connect('http://'+window.location.host);
 			socket.on('result', function (result) {
-				alert(result.api);
+				// console.log(result);
+				$('.contents').html('');
+
+				var template = twig({
+					data: $('#template-fontlist-listitem').html()
+				});
+
+				var $ul = $('<ul class="font-list">');
+				$('.contents').append($ul);
+				var sampleText = ''+$('#mainform input[name=sampleText]').val();
+				for(var idx in result){
+					var data = result[idx];
+					data.sampleText = sampleText;
+					if( !data.sampleText.length ){data.sampleText=data.family;}
+					var $output = $(template.render({
+						'font': data
+					}));
+					$output.find('.font-list__family a').click(function(){
+						$(this).parent().parent().parent().find('.font-list__property').toggle();
+					});
+					$ul.append($output);
+					// console.log(data);
+				}
 			});
-			socket.emit('command', {'api':'test'});
+		</script>
+		<script type="text/template" id="template-fontlist-listitem">
+			<li>
+				<div class="font-list__display" style="font-family:{{font.family}};">{{font.sampleText}}</div>
+				<ul class="font-list__family">
+					<li><strong>{{font.family}}</strong> / {{font.postscriptName}}</li>
+					<li><a href="javascript:;"><span class="glyphicon glyphicon-play-circle"></span></a></li>
+				</ul>
+				<dl class="font-list__property small" style="display:none;">
+					<dt>style</dt>
+						<dd>{{font.style}}</dd>
+					<dt>weight</dt>
+						<dd>{{font.weight}}</dd>
+					<dt>width</dt>
+						<dd>{{font.width}}</dd>
+					<dt>family</dt>
+						<dd>{{font.family}}</dd>
+					<dt>postscriptName</dt>
+						<dd>{{font.postscriptName}}</dd>
+					<dt>path</dt>
+						<dd>{{font.path}}</dd>
+				</dl>
+			</li>
 		</script>
 	</head>
 	<body>
 		<div class="container">
 			<h1>Baobab</h1>
 			<p>Baobab is the SystemFont Viewer Application.</p>
+			<form action="javascript:;" method="get" id="mainform">
+				<div class="input-group input-group-lg">
+						<input type="text" class="form-control" name="sampleText" value="What a beautiful FONT world! / 美しき日本語フォントの世界 / 1234567890" placeholder="sample text" />
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">List</button>
+						</span>
+				</div>
+			</form>
+			<div class="contents"></div>
 		</div>
 	</body>
 </html>

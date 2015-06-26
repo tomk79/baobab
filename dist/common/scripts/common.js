@@ -1,1 +1,1 @@
-window.focus();
+window.focus(),window.main=new function(n){function i(){n("#mainform").submit(function(){window.main.showFontList()})}this.showFontList=function(){socket.emit("command",{api:"getSystemFontList"})},n(window).load(function(){i()})}(jQuery);

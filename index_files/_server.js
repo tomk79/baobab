@@ -3,6 +3,7 @@
 (function(exports){
 	var fs = require('fs');
 	var path = require('path');
+	var fontManager = require('font-manager');
 	var express = require('express'),
 		app = express();
 
@@ -23,8 +24,11 @@
 		io.on('connection', function (socket) {
 			console.log('Socket Connected.');
 			socket.on('command', function (cmd) {
-				console.log(cmd);
-				socket.emit('result', cmd);
+				var rtn = {};
+				if( cmd.api == 'getSystemFontList' ){
+					rtn = fontManager.getAvailableFontsSync();
+				}
+				socket.emit('result', rtn);
 				return;
 			});
 		});
