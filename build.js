@@ -31,7 +31,7 @@ var nw = new NwBuilder({
       './dist/**',
       './node_modules/**'
     ], // use the glob format
-    version: 'v0.11.6',// <- version number of node-webkit
+    version: 'v0.12.2',// <- version number of node-webkit
     macIcns: './src/common/build/icon.icns',
     platforms: [
       'osx32',
