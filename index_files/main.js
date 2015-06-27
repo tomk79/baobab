@@ -68,7 +68,8 @@ new (function($, window){
 				[
 					script_path,
 					'port='+(port+retry)
-				]
+				],
+				{}
 			)
 		;
 		serverProc.stdout.on('data', function(data){
@@ -101,9 +102,9 @@ new (function($, window){
 				process.exit();
 				return;
 			}
-			// if(serverProc.pid){
-			// 	process.kill( serverProc.pid, 0 );
-			// }
+			if(serverProc.pid){
+				process.kill( 'SIGTERM' );
+			}
 			console.log('retry.('+retry+')');
 			setTimeout(function(){
 				serverStart(port, cb, retry);
@@ -127,7 +128,7 @@ new (function($, window){
 
 	// _nw_gui.Window.get().on('close', function(e){
 	// 	if(serverProc.pid){
-	// 		process.kill( serverProc.pid, 0 );
+	// 		process.kill( 'SIGTERM' );
 	// 	}
 	// 	// _nw_gui.Window.get().close();
 	// 	// process.exit();
@@ -135,7 +136,8 @@ new (function($, window){
 	// });
 	process.on( 'exit', function(e){
 		if(serverProc.pid){
-			process.kill( serverProc.pid, 0 );
+			console.log( 'kill Express Server: '+serverProc.pid );
+			serverProc.kill( 'SIGTERM' );
 		}
 		console.log( 'Application exit;' );
 	});
@@ -146,7 +148,7 @@ new (function($, window){
 	} );
 	// process.on( 'SIGINT', function(e){
 	// 	if(serverProc.pid){
-	// 		process.kill( serverProc.pid, 0 );
+	// 		process.kill( 'SIGTERM' );
 	// 	}
 	// 	console.log( 'SIGINT exit;' );
 	// });
