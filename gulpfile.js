@@ -38,7 +38,7 @@ gulp.task("watch", function() {
 	gulp.watch(["src/**/*.js"],[".js"]);
 	gulp.watch(["src/**/*.html","src/**/*.htm"],[".html"]);
 
-	require('child_process').spawn('node',['./dist/common/node/server.js']);
+	require('child_process').spawn('node',['./dist/common/node/server.js','port=8080']);
 	require('child_process').spawn('open',['http://127.0.0.1:'+8080+'/']);
 
 });
