@@ -25,12 +25,18 @@ console.log('');
 
 console.log('Build...');
 var nw = new NwBuilder({
-    files: [
-      './index.html',
-      './package.json',
-      './dist/**',
-      './node_modules/**'
-    ], // use the glob format
+    files: (function(dep){
+      var rtn = [
+        './package.json',
+        './index.html',
+        './index_files/**',
+        './dist/**'
+      ];
+      for(var i in dep){
+        rtn.push( './node_modules/'+i+'/**' );
+      }
+      return rtn;
+    })(packageJson.dependencies), // use the glob format
     version: 'v0.12.2',// <- version number of node-webkit
     macIcns: './src/common/build/icon.icns',
     platforms: [

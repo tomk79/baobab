@@ -62,9 +62,12 @@ new (function($, window){
 			process.exit();
 		}
 
+		// _tmpNode = require('child_process').spawn('./index_files/node/node'+(process.platform=='win32'?'.exe':''),['-v'],{});
+		// _tmpNode.stdout.on('data',function(data){ alert(data.toString()); });
+
 		serverProc = require('child_process')
 			.spawn(
-				'node',
+				'./index_files/node/node'+(process.platform=='win32'?'.exe':''),
 				[
 					script_path,
 					'port='+(port+retry)
@@ -74,21 +77,25 @@ new (function($, window){
 		;
 		serverProc.stdout.on('data', function(data){
 			data = php.trim(data.toString());
-			console.log(data);
+			// console.log(data);
 			var message = '';
-			if (data.match(new RegExp('^message\\:\s*(.*)$'))) {
-				message = php.trim(RegExp.$1);
-				console.log(message);
-				switch(message){
-					case 'server-standby':
-						cb('http://127.0.0.1:'+(port+retry));
-						break;
-					default:
-						console.log('unknown message.');
-						break;
+			var dataRow = data.split(new RegExp('\r\n|\r|\n'));
+			for(var idx in dataRow){
+				data = php.trim(dataRow[idx]);
+				if (data.match(new RegExp('^message\\:\s*(.*)$'))) {
+					message = php.trim(RegExp.$1);
+					console.log(message);
+					switch(message){
+						case 'server-standby':
+							cb('http://127.0.0.1:'+(port+retry));
+							break;
+						default:
+							console.log('unknown message.');
+							break;
+					}
+				}else{
+					console.log('no message.');
 				}
-			}else{
-				console.log('no message.');
 			}
 		});
 		serverProc.stderr.on('data', function(err){
@@ -103,7 +110,7 @@ new (function($, window){
 				return;
 			}
 			if(serverProc.pid){
-				process.kill( 'SIGTERM' );
+				serverProc.kill( 'SIGTERM' );
 			}
 			console.log('retry.('+retry+')');
 			setTimeout(function(){
@@ -113,6 +120,7 @@ new (function($, window){
 		return _this;
 	}
 
+	// Windowサイズ変更に伴うレイアウト調整
 	function windowResize(){
 		$mainFrame
 			.css({
@@ -126,14 +134,8 @@ new (function($, window){
 		windowResize();
 	});
 
-	// _nw_gui.Window.get().on('close', function(e){
-	// 	if(serverProc.pid){
-	// 		process.kill( 'SIGTERM' );
-	// 	}
-	// 	// _nw_gui.Window.get().close();
-	// 	// process.exit();
-	// 	console.log( 'Window close;' );
-	// });
+
+	// 終了処理
 	process.on( 'exit', function(e){
 		if(serverProc.pid){
 			console.log( 'kill Express Server: '+serverProc.pid );
@@ -143,15 +145,10 @@ new (function($, window){
 	});
 	process.on( 'uncaughtException', function(e){
 		// alert('ERROR: Uncaught Exception');
-		// console.log(e);
-		// console.log('ERROR: Uncaught Exception');
+		console.log(e.message);
+		console.log('ERROR: Uncaught Exception');
 	} );
-	// process.on( 'SIGINT', function(e){
-	// 	if(serverProc.pid){
-	// 		process.kill( 'SIGTERM' );
-	// 	}
-	// 	console.log( 'SIGINT exit;' );
-	// });
+
 
 	return this;
 })(jQuery, window);
