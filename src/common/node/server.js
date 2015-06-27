@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var fontManager = require('font-manager');
 var express = require('express'),
 	app = express();
 var server = require('http').Server(app);
@@ -24,7 +23,7 @@ console.log('port number is '+_port);
 // middleware
 app.use( express.static( __dirname+'/../../' ) );
 
-// {$port}番ポートでLISTEN状態にする
+// {$_port}番ポートでLISTEN状態にする
 server.listen( _port, function(){
 	console.log('message: server-standby');
 } );
@@ -35,7 +34,7 @@ io.on('connection', function (socket) {
 	socket.on('command', function (cmd) {
 		var rtn = {};
 		if( cmd.api == 'getSystemFontList' ){
-			rtn = fontManager.getAvailableFontsSync();
+			rtn = require('font-manager').getAvailableFontsSync();
 		}
 		socket.emit('result', rtn);
 		return;

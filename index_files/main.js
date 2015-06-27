@@ -90,17 +90,19 @@ new (function($, window){
 							cb('http://127.0.0.1:'+(port+retry));
 							break;
 						default:
+							$('body').append('<div>unknown message.</div>');
 							console.log('unknown message.');
 							break;
 					}
 				}else{
+					$('body').append('<div>no message.</div>');
 					console.log('no message.');
 				}
 			}
 		});
 		serverProc.stderr.on('data', function(err){
-			console.log('--- server error.');
-			console.log(err.toString());
+			$('body').append('<div>--- server error</div>');
+			$('body').append('<pre>'+err.toString()+'</pre>');
 		});
 		serverProc.on('close', function(code){
 			retry ++;
@@ -112,7 +114,7 @@ new (function($, window){
 			if(serverProc.pid){
 				serverProc.kill( 'SIGTERM' );
 			}
-			console.log('retry.('+retry+')');
+			$('body').append('<pre>retry.('+retry+')</pre>');
 			setTimeout(function(){
 				serverStart(port, cb, retry);
 			}, 500);
