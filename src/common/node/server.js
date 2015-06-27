@@ -25,7 +25,9 @@ console.log('port number is '+_port);
 app.use( express.static( __dirname+'/../../' ) );
 
 // {$port}番ポートでLISTEN状態にする
-server.listen( _port );
+server.listen( _port, function(){
+	console.log('message: server-standby');
+} );
 
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
@@ -41,5 +43,4 @@ io.on('connection', function (socket) {
 });
 
 
-console.log('message: server-standby');
 

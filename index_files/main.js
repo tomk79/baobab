@@ -36,7 +36,7 @@ new (function($, window){
 		})();
 
 		serverStart(30004, function(url){
-			console.log('server stanbied!!!!');
+			console.log('server standby!!!!');
 			$mainFrame = $('<iframe>')
 				.attr({'src':url})
 			;
@@ -107,7 +107,7 @@ new (function($, window){
 			console.log('retry.('+retry+')');
 			setTimeout(function(){
 				serverStart(port, cb, retry);
-			}, 1000);
+			}, 500);
 		});
 		return _this;
 	}
