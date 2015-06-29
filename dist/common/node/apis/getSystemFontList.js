@@ -1,0 +1,1 @@
+module.exports=new function(){this.run=function(n,t){var e={};e.api="renderFontList",e.fontlist=require("font-manager").getAvailableFontsSync(),t.emit("command",e)}};
