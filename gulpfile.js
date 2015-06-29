@@ -1,8 +1,9 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-var autoprefixer = require("gulp-autoprefixer");
-var uglify = require("gulp-uglify");
-var plumber = require("gulp-plumber");
+var sass = require('gulp-sass');//CSSコンパイラ
+var autoprefixer = require("gulp-autoprefixer");//CSSにベンダープレフィックスを付与してくれる
+var uglify = require("gulp-uglify");//JavaScriptファイルの圧縮ツール
+var concat = require('gulp-concat');//ファイルの結合ツール
+var plumber = require("gulp-plumber");//コンパイルエラーが起きても watch を抜けないようになる
 
 
 // src 中の *.scss を処理
@@ -15,16 +16,26 @@ gulp.task('.scss', function(){
 	;
 });
 
-// src 中の *.js を処理
+// main.js を処理
+gulp.task("main.js", function() {
+	gulp.src(["src/common/scripts/**/*.js"])
+		.pipe(plumber())
+		.pipe(concat('common/scripts/main.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest("./dist"))
+	;
+});
+
+// *.js を処理
 gulp.task(".js", function() {
-	gulp.src(["src/**/*.js"])
+	gulp.src(["src/**/*.js", "!src/common/scripts/**/*"])
 		.pipe(plumber())
 		.pipe(uglify())
 		.pipe(gulp.dest("./dist"))
 	;
 });
 
-// src 中の *.html を処理
+// *.html を処理
 gulp.task(".html", function() {
 	gulp.src(["src/**/*.html", "src/**/*.htm"])
 		.pipe(plumber())
@@ -34,9 +45,7 @@ gulp.task(".html", function() {
 
 // src 中のすべての拡張子を監視して処理
 gulp.task("watch", function() {
-	gulp.watch(["src/**/*.scss"],[".scss"]);
-	gulp.watch(["src/**/*.js"],[".js"]);
-	gulp.watch(["src/**/*.html","src/**/*.htm"],[".html"]);
+	gulp.watch(["src/**/*"],[".scss", "main.js",".js",".html"]);
 
 	require('child_process').spawn('node',['./dist/common/node/server.js','port=8080']);
 	require('child_process').spawn('open',['http://127.0.0.1:'+8080+'/']);
@@ -47,5 +56,6 @@ gulp.task("watch", function() {
 gulp.task("default", [
 	'.html',
 	'.scss',
+	'main.js',
 	'.js'
 ]);
