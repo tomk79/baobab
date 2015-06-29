@@ -56,14 +56,11 @@ new (function($, window){
 		console.log('sever port: '+(port+retry));
 		cb = cb || function(){};
 
-		var script_path = './dist/common/node/server.js';
+		var script_path = './dist/common/server/server.js';
 		if(!_utils.isFile(script_path)){
 			console.log('ERROR: server script is NOT defined.');
 			process.exit();
 		}
-
-		// _tmpNode = require('child_process').spawn('./index_files/node/node'+(process.platform=='win32'?'.exe':''),['-v'],{});
-		// _tmpNode.stdout.on('data',function(data){ alert(data.toString()); });
 
 		serverProc = require('child_process')
 			.spawn(
@@ -90,19 +87,19 @@ new (function($, window){
 							cb('http://127.0.0.1:'+(port+retry));
 							break;
 						default:
-							$('body').append('<div>unknown message.</div>');
+							// $('body').append('<div>unknown message.</div>');
 							console.log('unknown message.');
 							break;
 					}
 				}else{
-					$('body').append('<div>no message.</div>');
+					// $('body').append('<div>no message.</div>');
 					console.log('no message.');
 				}
 			}
 		});
 		serverProc.stderr.on('data', function(err){
-			$('body').append('<div>--- server error</div>');
-			$('body').append('<pre>'+err.toString()+'</pre>');
+			// $('body').append('<div>--- server error</div>');
+			// $('body').append('<pre>'+err.toString()+'</pre>');
 		});
 		serverProc.on('close', function(code){
 			retry ++;
@@ -114,7 +111,7 @@ new (function($, window){
 			if(serverProc.pid){
 				serverProc.kill( 'SIGTERM' );
 			}
-			$('body').append('<pre>retry.('+retry+')</pre>');
+			// $('body').append('<pre>retry.('+retry+')</pre>');
 			setTimeout(function(){
 				serverStart(port, cb, retry);
 			}, 500);

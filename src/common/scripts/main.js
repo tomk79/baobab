@@ -29,7 +29,7 @@ window.main = new (function($){
 			cmd = cmd || {};
 			cmd.api = cmd.api || '';
 			if( window.main.apis[cmd.api] ){
-				window.main.apis[cmd.api].run(cmd, socket);
+				window.main.apis[cmd.api].run(cmd, socket, window.main);
 			}
 		});
 

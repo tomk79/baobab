@@ -3,6 +3,7 @@ var path = require('path');
 var express = require('express'),
 	app = express();
 var server = require('http').Server(app);
+var main = require(__dirname+'/../node/main.js');
 
 // オプションを整理
 var options = (function(){
@@ -40,7 +41,7 @@ io.on('connection', function (socket) {
 		if( fs.existsSync(__dirname+'/apis/'+cmd.api+'.js') ){
 			console.log( cmd );
 			var api = require(__dirname+'/apis/'+cmd.api+'.js');
-			api.run(cmd, socket);
+			api.run(cmd, socket, main);
 		}
 		return;
 	});
