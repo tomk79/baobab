@@ -33,10 +33,15 @@ io.on('connection', function (socket) {
 	// console.log('Socket Connected.');
 	socket.on('command', function (cmd) {
 		var rtn = {};
-		if( cmd.api == 'getSystemFontList' ){
-			rtn = require('font-manager').getAvailableFontsSync();
+		cmd = cmd || {};
+		cmd.api = cmd.api || '';
+		var commandName = cmd.api.replace(new RegExp('[^a-zA-Z0-9\\_\\-]+','g'), '');
+
+		if( fs.existsSync(__dirname+'/apis/'+cmd.api+'.js') ){
+			console.log( cmd );
+			var api = require(__dirname+'/apis/'+cmd.api+'.js');
+			api.run(cmd, socket);
 		}
-		socket.emit('result', rtn);
 		return;
 	});
 });
