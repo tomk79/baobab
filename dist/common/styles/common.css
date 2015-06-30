@@ -26,3 +26,10 @@ body {
       margin: 0;
       padding: 0;
       display: inline-block; }
+
+.star {
+  color: #ddd; }
+  .star__active,
+  .star__active:active {
+    color: #eeee33;
+    font-size: 180%; }

@@ -5,6 +5,7 @@ module.exports = new (function(){
 	var fs = require('fs');
 	var desktopUtils = require('desktop-utils');
 	var appName = 'baobab';
+	var fontDb = {};
 
 	/**
 	 * データディレクトリを初期化する
@@ -12,7 +13,9 @@ module.exports = new (function(){
 	this.initDataDir = function(){
 		var localDataDir = this.getLocalDataDir();
 		if( !fs.existsSync(localDataDir) ){
-			var res = fs.mkdirSync(localDataDir);
+			if( !fs.mkdirSync(localDataDir) ){
+				return false;
+			}
 		}
 		if( !fs.existsSync(localDataDir) ){
 			return false;
@@ -32,6 +35,26 @@ module.exports = new (function(){
 	 * フォントDB(JSON)の内容を取得する
 	 */
 	this.getFontDb = function(cb){
+		cb = cb || function(){};
+		cb(fontDb);
+		return this;
+	}
+
+	/**
+	 * フォントDB(JSON)の内容をセットする
+	 */
+	this.setFontDb = function(db, cb){
+		cb = cb || function(){};
+		fontDb = db;
+		cb(true);
+		return this;
+	}
+
+	/**
+	 * フォントDB(JSON)の内容を読み込む
+	 */
+	this.loadFontDb = function(cb){
+		cb = cb || function(){};
 		if(!this.initDataDir()){
 			cb(false);
 			return this;
@@ -42,8 +65,25 @@ module.exports = new (function(){
 			cb({});
 			return this;
 		}
-		var rtn = require(dbPath);
-		cb(rtn);
+		fontDb = require(dbPath);
+		cb(fontDb);
+		return this;
+	}
+
+	/**
+	 * フォントDB(JSON)の内容を保存する
+	 */
+	this.saveFontDb = function(cb){
+		cb = cb || function(){};
+		if(!this.initDataDir()){
+			cb(false);
+			return this;
+		}
+		var localDataDir = this.getLocalDataDir();
+		var dbPath = localDataDir+'/db.json';
+		fs.writeFile(dbPath, JSON.stringify(fontDb, null, 1), function(err){
+			cb(!err);
+		} );
 		return this;
 	}
 

@@ -49,6 +49,19 @@ window.main = new (function($){
 		socket.emit('command', {'api':'getSystemFontList'});
 	};
 
+	/**
+	 * フォントにスターをつける
+	 */
+	this.checkStar = function(fontPostscriptName){
+		$('li[data-postscriptname='+fontPostscriptName+'] .font-list__btn-star').removeClass('star__active').addClass('star__active');
+		socket.emit('command', {'api':'checkStar','postscriptName':fontPostscriptName});
+	};
+
+	this.uncheckStar = function(fontPostscriptName){
+		$('li[data-postscriptname='+fontPostscriptName+'] .font-list__btn-star').removeClass('star__active');
+		socket.emit('command', {'api':'uncheckStar','postscriptName':fontPostscriptName});
+	};
+
 
 	$(window).load(function(){
 		init();

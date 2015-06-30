@@ -22,11 +22,12 @@
 		<script src="common/scripts/main.js"></script>
 
 		<script type="text/template" id="template-fontlist-listitem">
-			<li>
+			<li data-postscriptname="{{font.originalData.postscriptName}}">
 				<div class="font-list__display" style="font-family:{{font.originalData.family}};">{{font.sampleText}}</div>
 				<ul class="font-list__family">
 					<li><strong>{{font.originalData.family}}</strong> / {{font.originalData.postscriptName}}</li>
-					<li><a href="javascript:;"><span class="glyphicon glyphicon-play-circle"></span></a></li>
+					<li><a href="javascript:;" class="font-list__btn-detail"><span class="glyphicon glyphicon-play-circle"></span></a></li>
+					<li><a href="javascript:;" class="font-list__btn-star star{% if font.star %} star__active{% endif %}"><span class="glyphicon glyphicon-star"></span></a></li>
 				</ul>
 				<dl class="font-list__property small" style="display:none;">
 					<dt>style</dt>

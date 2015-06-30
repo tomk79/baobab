@@ -31,3 +31,12 @@ body{
 		}
 	}
 }
+
+.star{
+	color: #ddd;
+	&__active,
+	&__active:active{
+		color:#eeee33;
+		font-size:180%;
+	}
+}

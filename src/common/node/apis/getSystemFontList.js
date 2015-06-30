@@ -7,7 +7,7 @@ module.exports = new (function(){
 		var rtn = {};
 		var fontlist = require('font-manager').getAvailableFontsSync();
 		rtn.api = 'renderFontList';
-		main.getFontDb(function(db){
+		main.loadFontDb(function(db){
 			rtn.fontlist = db||{};
 			for(var idx in fontlist){
 				var font = fontlist[idx];
@@ -15,7 +15,11 @@ module.exports = new (function(){
 				rtn.fontlist[font.postscriptName] = (rtn.fontlist[font.postscriptName]?rtn.fontlist[font.postscriptName]:{});
 				rtn.fontlist[font.postscriptName].originalData = font;
 			}
-			socket.emit('command', rtn);
+			main.setFontDb(rtn.fontlist, function(){
+				main.saveFontDb(function(){
+					socket.emit('command', rtn);
+				});
+			});
 		});
 	}
 

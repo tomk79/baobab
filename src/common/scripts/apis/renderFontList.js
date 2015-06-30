@@ -20,8 +20,17 @@ window.main.apis.renderFontList = new (function(){
 			var $output = $(template.render({
 				'font': data
 			}));
-			$output.find('.font-list__family a').click(function(){
-				$(this).parent().parent().parent().find('.font-list__property').toggle();
+			$output.find('.font-list__family a.font-list__btn-detail').click(function(){
+				$(this).parent().parent().parent().find('.font-list__property').toggle('slow');
+			});
+			$output.find('.font-list__family a.font-list__btn-star').click(function(){
+				var $this = $(this);
+				var postscriptname = $this.parent().parent().parent().attr('data-postscriptname');
+				if( !$this.hasClass('star__active') ){
+					main.checkStar( postscriptname );
+				}else{
+					main.uncheckStar( postscriptname );
+				}
 			});
 			$ul.append($output);
 			// console.log(data);
