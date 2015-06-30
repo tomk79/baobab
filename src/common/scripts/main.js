@@ -25,7 +25,7 @@ window.main = new (function($){
 
 		socket = io.connect('http://'+window.location.host);
 		socket.on('command', function (cmd) {
-			console.log(cmd);
+			// console.log(cmd);
 			cmd = cmd || {};
 			cmd.api = cmd.api || '';
 			if( window.main.apis[cmd.api] ){

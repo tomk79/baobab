@@ -56,7 +56,7 @@ new (function($, window){
 		console.log('sever port: '+(port+retry));
 		cb = cb || function(){};
 
-		var script_path = './dist/common/server/server.js';
+		var script_path = './index_files/server.js';
 		if(!_utils.isFile(script_path)){
 			console.log('ERROR: server script is NOT defined.');
 			process.exit();

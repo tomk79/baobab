@@ -23,24 +23,24 @@
 
 		<script type="text/template" id="template-fontlist-listitem">
 			<li>
-				<div class="font-list__display" style="font-family:{{font.family}};">{{font.sampleText}}</div>
+				<div class="font-list__display" style="font-family:{{font.originalData.family}};">{{font.sampleText}}</div>
 				<ul class="font-list__family">
-					<li><strong>{{font.family}}</strong> / {{font.postscriptName}}</li>
+					<li><strong>{{font.originalData.family}}</strong> / {{font.originalData.postscriptName}}</li>
 					<li><a href="javascript:;"><span class="glyphicon glyphicon-play-circle"></span></a></li>
 				</ul>
 				<dl class="font-list__property small" style="display:none;">
 					<dt>style</dt>
-						<dd>{{font.style}}</dd>
+						<dd>{{font.originalData.style}}</dd>
 					<dt>weight</dt>
-						<dd>{{font.weight}}</dd>
+						<dd>{{font.originalData.weight}}</dd>
 					<dt>width</dt>
-						<dd>{{font.width}}</dd>
+						<dd>{{font.originalData.width}}</dd>
 					<dt>family</dt>
-						<dd>{{font.family}}</dd>
+						<dd>{{font.originalData.family}}</dd>
 					<dt>postscriptName</dt>
-						<dd>{{font.postscriptName}}</dd>
+						<dd>{{font.originalData.postscriptName}}</dd>
 					<dt>path</dt>
-						<dd>{{font.path}}</dd>
+						<dd>{{font.originalData.path}}</dd>
 				</dl>
 			</li>
 		</script>

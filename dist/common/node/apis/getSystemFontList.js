@@ -1,1 +1,1 @@
-module.exports=new function(){this.run=function(n,t){var e={};e.api="renderFontList",e.fontlist=require("font-manager").getAvailableFontsSync(),t.emit("command",e)}};
+module.exports=new function(){this.run=function(t,n,i){var o={},s=require("font-manager").getAvailableFontsSync();o.api="renderFontList",i.getFontDb(function(t){o.fontlist=t||{};for(var i in s){var a=s[i];o.fontlist[a.postscriptName]=o.fontlist[a.postscriptName]?o.fontlist[a.postscriptName]:{},o.fontlist[a.postscriptName].originalData=a}n.emit("command",o)})}};

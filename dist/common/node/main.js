@@ -1,1 +1,1 @@
-module.exports=new function(){require("desktop-utils")};
+module.exports=new function(){var t=require("fs"),i=require("desktop-utils"),r="baobab";this.initDataDir=function(){var i=this.getLocalDataDir();if(!t.existsSync(i)){t.mkdirSync(i)}return t.existsSync(i)?!0:!1},this.getLocalDataDir=function(){return i.getLocalDataDir(r)},this.open=i.open,this.getFontDb=function(i){if(!this.initDataDir())return i(!1),this;var r=this.getLocalDataDir(),e=r+"/db.json";if(!t.existsSync(e))return i({}),this;var n=require(e);return i(n),this}};

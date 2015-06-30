@@ -3,7 +3,8 @@
  */
 window.main.apis.renderFontList = new (function(){
 
-	this.run = function(cmd, socket){
+	this.run = function(cmd, socket, main){
+		// console.log(cmd);
 		var fontlist = cmd.fontlist;
 		var template = twig({
 			data: $('#template-fontlist-listitem').html()
@@ -12,10 +13,10 @@ window.main.apis.renderFontList = new (function(){
 		var $ul = $('.font-list');
 		$('.contents').append($ul);
 		var sampleText = ''+$('#mainform input[name=sampleText]').val();
-		for (var idx in fontlist) {
+		Object.keys(fontlist).forEach(function (idx) {
 			var data = fontlist[idx];
 			data.sampleText = sampleText;
-			if( !data.sampleText.length ){data.sampleText=data.family;}
+			if( !data.sampleText.length ){data.sampleText=data.originalData.family;}
 			var $output = $(template.render({
 				'font': data
 			}));
@@ -24,7 +25,7 @@ window.main.apis.renderFontList = new (function(){
 			});
 			$ul.append($output);
 			// console.log(data);
-		}
+		});
 
 	}
 
