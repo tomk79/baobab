@@ -1,1 +1,1 @@
-module.exports=new function(){this.run=function(n,o,t){t.getFontDb(function(o){o[n.postscriptName][n.key]=n.val,t.setFontDb(o,function(){t.saveFontDb(function(n){console.log(n)})})})}};
+module.exports=new function(){this.run=function(o,e,t){switch(o.key){case"star":case"url":case"license":case"comment":break;default:return void console.log(!1)}t.getFontDb(function(e){return typeof e!=typeof{}?void console.log(!1):e[o.postscriptName]?(e[o.postscriptName][o.key]=o.val,void t.setFontDb(e,function(){t.saveFontDb(function(o){console.log(o)})})):void console.log(!1)})}};
