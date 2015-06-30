@@ -29,20 +29,34 @@
 					<li><a href="javascript:;" class="font-list__btn-detail"><span class="glyphicon glyphicon-play-circle"></span></a></li>
 					<li><a href="javascript:;" class="font-list__btn-star star{% if font.star %} star__active{% endif %}"><span class="glyphicon glyphicon-star"></span></a></li>
 				</ul>
-				<dl class="font-list__property small" style="display:none;">
-					<dt>style</dt>
-						<dd>{{font.originalData.style}}</dd>
-					<dt>weight</dt>
-						<dd>{{font.originalData.weight}}</dd>
-					<dt>width</dt>
-						<dd>{{font.originalData.width}}</dd>
-					<dt>family</dt>
-						<dd>{{font.originalData.family}}</dd>
-					<dt>postscriptName</dt>
-						<dd>{{font.originalData.postscriptName}}</dd>
-					<dt>path</dt>
-						<dd>{{font.originalData.path}}</dd>
-				</dl>
+				<div class="font-list__property" style="display:none;">
+					<dl class="small">
+						<dt>style</dt>
+							<dd>{{font.originalData.style}}</dd>
+						<dt>weight</dt>
+							<dd>{{font.originalData.weight}}</dd>
+						<dt>width</dt>
+							<dd>{{font.originalData.width}}</dd>
+						<dt>family</dt>
+							<dd>{{font.originalData.family}}</dd>
+						<dt>postscriptName</dt>
+							<dd>{{font.originalData.postscriptName}}</dd>
+						<dt>path</dt>
+							<dd>{{font.originalData.path}}</dd>
+					</dl>
+					<div class="font-list__memo">
+						<div class="input-group">
+							<span class="input-group-addon">URL</span>
+							<input type="text" class="form-control" placeholder="http://" name="url" value="{{font.url}}" />
+							<span class="input-group-addon">License</span>
+							<input type="text" class="form-control" placeholder="" name="license" value="{{font.license}}" />
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">comment</span>
+							<input type="text" class="form-control" placeholder="" name="comment" value="{{font.comment}}" />
+						</div>
+					</div>
+				</div>
 			</li>
 		</script>
 	</head>

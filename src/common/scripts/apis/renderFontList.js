@@ -32,6 +32,11 @@ window.main.apis.renderFontList = new (function(){
 					main.uncheckStar( postscriptname );
 				}
 			});
+			$output.find('.font-list__memo input').change(function(){
+				var $this = $(this);
+				var postscriptname = $this.parent().parent().parent().parent().attr('data-postscriptname');
+				main.updateFontInfo( postscriptname, $this.attr('name'), $this.val() );
+			});
 			$ul.append($output);
 			// console.log(data);
 		});

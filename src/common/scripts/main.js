@@ -54,14 +54,26 @@ window.main = new (function($){
 	 */
 	this.checkStar = function(fontPostscriptName){
 		$('li[data-postscriptname='+fontPostscriptName+'] .font-list__btn-star').removeClass('star__active').addClass('star__active');
-		socket.emit('command', {'api':'checkStar','postscriptName':fontPostscriptName});
+		socket.emit('command', {'api':'updateFontInfo','postscriptName':fontPostscriptName, 'key':'star', 'val':true});
+		return this;
 	};
 
 	this.uncheckStar = function(fontPostscriptName){
 		$('li[data-postscriptname='+fontPostscriptName+'] .font-list__btn-star').removeClass('star__active');
-		socket.emit('command', {'api':'uncheckStar','postscriptName':fontPostscriptName});
+		socket.emit('command', {'api':'updateFontInfo','postscriptName':fontPostscriptName, 'key':'star', 'val':false});
+		return this;
 	};
 
+	this.updateFontInfo = function(fontPostscriptName, key, val) {
+		var cmd = {
+			'api':'updateFontInfo',
+			'postscriptName': fontPostscriptName,
+			'key': key,
+			'val': val
+		};
+		socket.emit('command', cmd);
+		return this;
+	}
 
 	$(window).load(function(){
 		init();
