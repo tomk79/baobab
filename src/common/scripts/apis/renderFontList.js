@@ -10,15 +10,40 @@ window.main.apis.renderFontList = new (function(){
 			data: $('#template-fontlist-listitem').html()
 		});
 
+		var formVals = {};
+		formVals.sampleText = ''+$('#mainform input[name=sampleText]').val();
+		formVals.keywords = ''+$('#mainform input[name=keywords]').val();
+		formVals.starOnly = $('#mainform input[name=starOnly]').prop('checked');
+
 		var $ul = $('.font-list');
 		$('.contents').append($ul);
-		var sampleText = ''+$('#mainform input[name=sampleText]').val();
+
+		function searchiIn(keywords, value){
+			if(typeof(value) !== typeof('')){return false;}
+			var res = value.toLowerCase().indexOf( keywords.toLowerCase() );
+			if( res >= 0 ){return true;}
+			return false;
+		}
+
 		Object.keys(fontlist).forEach(function (idx) {
+
 			var data = fontlist[idx];
-			data.sampleText = sampleText;
-			if( !data.sampleText.length ){data.sampleText=data.originalData.family;}
+			if( !formVals.sampleText.length ){formVals.sampleText=data.originalData.family;}
+			if( formVals.starOnly && !data.star ){return;}
+			if( formVals.keywords.length ){
+				if(
+					!searchiIn( formVals.keywords, data.url )
+					&& !searchiIn( formVals.keywords, data.comment )
+					&& !searchiIn( formVals.keywords, data.originalData.family )
+					&& !searchiIn( formVals.keywords, data.originalData.postscriptName )
+					&& !searchiIn( formVals.keywords, data.originalData.path )
+				){
+					return;
+				}
+			}
 			var $output = $(template.render({
-				'font': data
+				'font': data,
+				'sampleText': formVals.sampleText
 			}));
 			$output.find('.font-list__family a.font-list__btn-detail').click(function(){
 				$(this).parent().parent().parent().find('.font-list__property').toggle('slow');

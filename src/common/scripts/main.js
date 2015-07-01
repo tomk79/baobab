@@ -58,12 +58,18 @@ window.main = new (function($){
 		return this;
 	};
 
+	/**
+	 * フォントのスターを削除
+	 */
 	this.uncheckStar = function(fontPostscriptName){
 		$('li[data-postscriptname='+fontPostscriptName+'] .font-list__btn-star').removeClass('star__active');
 		socket.emit('command', {'api':'updateFontInfo','postscriptName':fontPostscriptName, 'key':'star', 'val':false});
 		return this;
 	};
 
+	/**
+	 * フォント情報を更新する
+	 */
 	this.updateFontInfo = function(fontPostscriptName, key, val) {
 		var cmd = {
 			'api':'updateFontInfo',

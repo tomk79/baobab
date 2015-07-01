@@ -23,7 +23,7 @@
 
 		<script type="text/template" id="template-fontlist-listitem">
 			<li data-postscriptname="{{font.originalData.postscriptName}}">
-				<div class="font-list__display" style="font-family:{{font.originalData.family}};">{{font.sampleText}}</div>
+				<div class="font-list__display" style="font-family:{{font.originalData.family}};">{{sampleText}}</div>
 				<ul class="font-list__family">
 					<li><strong>{{font.originalData.family}}</strong> / {{font.originalData.postscriptName}}</li>
 					<li><a href="javascript:;" class="font-list__btn-detail"><span class="glyphicon glyphicon-play-circle"></span></a></li>
@@ -62,14 +62,19 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1>Baobab</h1>
-			<p>Baobab is the SystemFont Viewer Application.</p>
+			<h1>Baobab <small>Baobab is the SystemFont Viewer Application.</small></h1>
 			<form action="javascript:;" method="get" id="mainform">
 				<div class="input-group input-group-lg">
-						<input type="text" class="form-control" name="sampleText" value="What a beautiful FONT world! / 美しき日本語フォントの世界 / 1234567890" placeholder="sample text" />
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">List</button>
-						</span>
+					<span class="input-group-addon">Sample Text</span>
+					<input type="text" class="form-control" name="sampleText" value="What a beautiful FONT world! / 美しき日本語フォントの世界 / 1234567890" placeholder="sample text" />
+				</div>
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon">Keywords</span>
+					<input type="text" class="form-control" name="keywords" value="" placeholder="keywords" />
+					<span class="input-group-addon"><label><input type="checkbox" name="starOnly" value="1" /> Star Only</label></span>
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="submit">MAKE YOUR FONT LIST</button>
+					</span>
 				</div>
 			</form>
 			<div class="contents"></div>
