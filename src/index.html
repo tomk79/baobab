@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Baobab</title>
+		<title>Baobab - The SystemFont Viewer.</title>
 
 		<!-- jQuery -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -30,7 +30,7 @@
 					<li><a href="javascript:;" class="font-list__btn-star star{% if font.star %} star__active{% endif %}"><span class="glyphicon glyphicon-star"></span></a></li>
 				</ul>
 				<div class="font-list__property" style="display:none;">
-					<dl class="small">
+					<dl class="dl-horizontal small">
 						<dt>style</dt>
 							<dd>{{font.originalData.style}}</dd>
 						<dt>weight</dt>
@@ -45,7 +45,7 @@
 							<dd>{{font.originalData.path}}</dd>
 					</dl>
 					<div class="font-list__memo">
-						<div class="input-group">
+						<div class="input-group" style="margin-bottom:5px;">
 							<span class="input-group-addon">URL</span>
 							<input type="text" class="form-control" placeholder="http://" name="url" value="{{font.url}}" />
 							<span class="input-group-addon">License</span>
@@ -61,22 +61,26 @@
 		</script>
 	</head>
 	<body>
+		<header class="t-header">
+			<div class="container">
+				<h1>Baobab <small>The SystemFont Viewer.</small></h1>
+				<form action="javascript:;" method="get" id="mainform">
+					<div class="input-group input-group-lg" style="margin-bottom:5px;">
+						<span class="input-group-addon">Sample Text</span>
+						<input type="text" class="form-control" name="sampleText" value="What a beautiful FONT world! / 美しき日本語フォントの世界 / 1234567890" placeholder="sample text" />
+					</div>
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Keywords</span>
+						<input type="text" class="form-control" name="keywords" value="" placeholder="keywords" />
+						<span class="input-group-addon"><label><input type="checkbox" name="starOnly" value="1" /> Star Only</label></span>
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="submit">MAKE YOUR FONT LIST</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</header>
 		<div class="container">
-			<h1>Baobab <small>Baobab is the SystemFont Viewer Application.</small></h1>
-			<form action="javascript:;" method="get" id="mainform">
-				<div class="input-group input-group-lg">
-					<span class="input-group-addon">Sample Text</span>
-					<input type="text" class="form-control" name="sampleText" value="What a beautiful FONT world! / 美しき日本語フォントの世界 / 1234567890" placeholder="sample text" />
-				</div>
-				<div class="input-group input-group-lg">
-					<span class="input-group-addon">Keywords</span>
-					<input type="text" class="form-control" name="keywords" value="" placeholder="keywords" />
-					<span class="input-group-addon"><label><input type="checkbox" name="starOnly" value="1" /> Star Only</label></span>
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="submit">MAKE YOUR FONT LIST</button>
-					</span>
-				</div>
-			</form>
 			<div class="contents"></div>
 		</div>
 	</body>
