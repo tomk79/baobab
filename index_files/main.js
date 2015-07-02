@@ -6,6 +6,7 @@ new (function($, window){
 	var _nw_gui = require('nw.gui');
 	var php = require('phpjs');
 	var path = require('path');
+	var packageJson = require('./package.json');
 	var $mainFrame;
 	var serverProc;
 	var __dirname = (function() {
@@ -35,7 +36,7 @@ new (function($, window){
 
 		})();
 
-		serverStart(30004, function(url){
+		serverStart(packageJson.baobabConfig.defaultPort, function(url){
 			console.log('server standby!!!!');
 			$mainFrame = $('<iframe>')
 				.attr({'src':url})

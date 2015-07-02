@@ -4,6 +4,7 @@ var express = require('express'),
 	app = express();
 var server = require('http').Server(app);
 var main = require(__dirname+'/../dist/common/node/main.js');
+var packageJson = require(__dirname+'/../package.json');
 
 // オプションを整理
 var options = (function(){
@@ -18,7 +19,8 @@ var options = (function(){
 
 // console.log(process.argv);
 var _port = options['port'];
-if(!_port){_port = 8081}
+if(!_port){_port = packageJson.baobabConfig.defaultPort;}
+if(!_port){_port = 8080;}
 console.log('port number is '+_port);
 
 // middleware

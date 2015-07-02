@@ -4,6 +4,7 @@ var autoprefixer = require("gulp-autoprefixer");//CSSにベンダープレフィ
 var uglify = require("gulp-uglify");//JavaScriptファイルの圧縮ツール
 var concat = require('gulp-concat');//ファイルの結合ツール
 var plumber = require("gulp-plumber");//コンパイルエラーが起きても watch を抜けないようになる
+var packageJson = require(__dirname+'/package.json');
 
 
 // src 中の *.scss を処理
@@ -47,14 +48,15 @@ gulp.task(".html", function() {
 gulp.task("watch", function() {
 	gulp.watch(["src/**/*"],[".scss", "main.js",".js",".html"]);
 
-	var svr = require('child_process').spawn('node',['./index_files/server.js','port=8080']);
+	var port = packageJson.baobabConfig.defaultPort;
+	var svr = require('child_process').spawn('node',['./index_files/server.js','port='+port]);
 	svr.stdout.on('data', function(data){
 		console.log(data.toString());
 	});
 	svr.stderr.on('data', function(data){
 		console.log(data.toString());
 	});
-	require('child_process').spawn('open',['http://127.0.0.1:'+8080+'/']);
+	require('child_process').spawn('open',['http://127.0.0.1:'+port+'/']);
 
 });
 
