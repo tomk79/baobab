@@ -1,6 +1,6 @@
 {
   "name": "Baobab",
-  "version": "0.1.0-alpha1-nb",
+  "version": "0.1.0-beta1",
   "description": "Baobab is the SystemFont Viewer Application.",
   "main": "index.html",
   "scripts": {
